@@ -6,10 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todo.model.UserInformation;
 import com.example.todo.services.UserService;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,6 +22,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+    private ListView listViewUsers;
+    private List<UserInformation> userList;
+
 
     private EditText firstNameEditText;
     private EditText secondNameEditText;
@@ -36,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         lastNameEditText = findViewById(R.id.lastNameEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
         addressEditText = findViewById(R.id.addressEditText);
-
         Button submitButton = findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +89,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
         });
+
+
     }
+    // Initialize Retrofit
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://192.168.100.152:8080/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    // Create the UserService instance
+    UserService userService = retrofit.create(UserService.class);
+
+    // Make the API request to get user information
+
+
+
 }
