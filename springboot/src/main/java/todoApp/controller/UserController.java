@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 @CrossOrigin
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/User")
 public class UserController {
 
     private final UserInfo_Services userService;
@@ -21,26 +21,26 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/getAllUser")
     public ResponseEntity<List<UserInfomation>> getAllUsers() {
         List<UserInfomation> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getUserById/{id}")
     public ResponseEntity<UserInfomation> getUserById(@PathVariable("id") int id) {
         Optional<UserInfomation> user = userService.getUserById(id);
         return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/")
+    @PostMapping("/saveUser")
     public ResponseEntity<UserInfomation> createUser(@RequestBody UserInfomation user) {
         UserInfomation createdUser = userService.createUser(user);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateUser{id}")
     public ResponseEntity<UserInfomation> updateUser(@PathVariable("id") int id, @RequestBody UserInfomation updatedUser) {
         try {
             UserInfomation user = userService.updateUser(id, updatedUser);
@@ -50,7 +50,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteUser{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") int id) {
         try {
             userService.deleteUser(id);

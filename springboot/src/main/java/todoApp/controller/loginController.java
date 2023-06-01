@@ -18,7 +18,7 @@ import todoApp.model.login;
 import todoApp.services.login_services;
 @CrossOrigin
 @RestController
-@RequestMapping("/login")
+@RequestMapping("api/Account")
 public class loginController{
     private final login_services loginServices;
 
