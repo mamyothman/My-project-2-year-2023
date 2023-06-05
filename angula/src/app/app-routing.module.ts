@@ -4,6 +4,7 @@ import { NavBarComponent } from './default/nav-bar/nav-bar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './default/main/main.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 
@@ -13,7 +14,9 @@ const routes: Routes = [
   {path:'',component:MainComponent},
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent}
-]}
+]},
+{path:'home',component:HomeComponent}
+
 ];
 
 @NgModule({

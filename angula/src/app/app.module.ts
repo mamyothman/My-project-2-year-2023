@@ -9,6 +9,10 @@ import { MainComponent } from './default/main/main.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule,ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,BrowserAnimationsModule
+
 
   ],
   providers: [],
