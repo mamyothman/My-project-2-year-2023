@@ -13,7 +13,7 @@ export class RegisterComponent {
 
   constructor(private loginServices:LoginServicesService,private router:Router){}
   register() {
-    this.loginModel.roles = "Admin";
+    this.loginModel.roles = "user";
     this.loginModel.status = 1;
 
     // Checking if the password and confirm password match

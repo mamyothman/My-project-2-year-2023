@@ -6,24 +6,23 @@
           <h5 class="card-title text-center">Login</h5>
         </div>
         <div class="card-body">
-          <form >
+          <form (ngSubmit)="login()" #registrationForm="ngForm">
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email"  placeholder="Enter your email">
+              <input type="email" class="form-control" [(ngModel)]="login_model.username" name="username"
+                placeholder="Enter your email" required="">
             </div><br>
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control" id="password"  placeholder="Enter your password">
+              <input type="password" class="form-control" [(ngModel)]="login_model.password" name="password"
+                placeholder="Enter your password" required="">
             </div><br>
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input" id="remember">
-              <label class="form-check-label" for="remember">Remember me</label>
-            </div><br>
-            <button type="submit" class="btn btn-primary btn-block" [routerLink]="['/home']">Login</button>
+            <button type="submit" class="btn btn-primary btn-block"
+              [disabled]="!registrationForm.form.valid">Login</button>
           </form>
         </div>
         <div class="card-footer text-muted text-center">
-          Don't have an account? <a href="#">Sign up</a>
+          Don't have an account? <a [routerLink]="['/nav-bar/register']">Sign up</a>
         </div>
       </div>
     </div>

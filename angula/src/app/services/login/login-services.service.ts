@@ -7,18 +7,20 @@ import { Observable } from 'rxjs';
 })
 export class LoginServicesService {
 
-  private login = environment.url + 'Account/';
+  private login = environment.url + 'Account';
 
   constructor(
     private http: HttpClient
    ) { }
 
-    login_authentication(username:any,password:any):Observable<any>{
-      return this.http.get(this.login + '/' + username + '/' + password);
-    }
+   login_authentication(username: any, password: any): Observable<any> {
+    return this.http.post(this.login + '/login', null, { params: { username, password } });
+  }
+
+
 
     user_registrations(data:any):Observable<any>{
-      return this.http.post(this.login +'register',data);
+      return this.http.post(this.login +'/register',data);
     }
 
 }

@@ -1,6 +1,7 @@
 import { user_info } from './../../model/User_Info';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { UserInfoService } from 'src/app/services/user_info/user-info.service';
 @Component({
   selector: 'app-home',
@@ -8,8 +9,10 @@ import { UserInfoService } from 'src/app/services/user_info/user-info.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
-constructor(private user_services:UserInfoService,private dialog: MatDialog){}
+username!:any
+check_login:boolean = true;
+error:boolean = false;
+constructor(private user_services:UserInfoService,private dialog: MatDialog,private route:Router){}
 // user_info:user_info = new user_info();
 data!:any
 user_info: user_info= new user_info()
@@ -19,7 +22,13 @@ user_info: user_info= new user_info()
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
       this.getAll_User();
+      this.username = sessionStorage.getItem("username");
+      if(this.username==null){
+        this.check_login = false
+        this.error = true
+      }
   }
+
 
   createUser(data:any){
     return this.user_services.createUser_Info(data).subscribe(respo=>{
@@ -82,5 +91,12 @@ const data = {
 this.createUser(data);
 this.getAll_User();
 // console.log(data)
+}
+
+logout(){
+  sessionStorage.removeItem("username")
+  this.route.navigate(['/nav-bar'])
+
+
 }
 }
