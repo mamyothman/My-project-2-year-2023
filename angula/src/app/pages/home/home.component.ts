@@ -2,6 +2,8 @@ import { user_info } from './../../model/User_Info';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { image } from 'src/app/model/image';
+import { ImageServicesService } from 'src/app/services/image/image-services.service';
 import { UserInfoService } from 'src/app/services/user_info/user-info.service';
 @Component({
   selector: 'app-home',
@@ -9,10 +11,15 @@ import { UserInfoService } from 'src/app/services/user_info/user-info.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  imageData!: FormData;
 username!:any
 check_login:boolean = true;
 error:boolean = false;
-constructor(private user_services:UserInfoService,private dialog: MatDialog,private route:Router){}
+image_model:image = new image()
+constructor(private user_services:UserInfoService,
+  private dialog: MatDialog,
+  private image_services:ImageServicesService,
+  private route:Router){}
 // user_info:user_info = new user_info();
 data!:any
 user_info: user_info= new user_info()
@@ -27,6 +34,8 @@ user_info: user_info= new user_info()
         this.check_login = false
         this.error = true
       }
+
+      this.getAllFiles()
   }
 
 
@@ -64,6 +73,7 @@ return this.user_services.deleteUser_Info(this.user_info.user_id).subscribe(resp
 openDialog(data:any): void {
   this.dialog.open(this.sayHelloTemplate,{width:'400px'});
   this.user_info = data;
+  console.log(this.user_info )
 
 }
 openDialogAddUser():void{
@@ -98,5 +108,44 @@ logout(){
   this.route.navigate(['/nav-bar'])
 
 
+}
+// onFileChange(event: any) {
+//   if (event.target.files && event.target.files.length > 0) {
+//     const file = event.target.files[0];
+//     this.image_model.filename = file.name;
+//     this.imageData = new FormData();
+//     this.imageData.append('file', file);
+//   }
+// }
+selectedFile!: File;
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+}
+
+upload(file:File){
+  return this.image_services.uploadFile(file).subscribe(respo=>{
+    console.log(respo)
+    this.getAllFiles();
+  })
+}
+
+uploadFile() {
+  if (this.selectedFile) {
+    // console.log('Selected file:', this.selectedFile);
+      this.upload(this.selectedFile)
+  } else {
+    console.log('No file selected.');
+  }
+}
+files!: any[];
+getAllFiles() {
+  this.image_services.getAllFiles().subscribe(
+    (response) => {
+      this.files = response;
+    },
+    (error) => {
+      console.error('Error retrieving files:', error);
+    }
+  );
 }
 }

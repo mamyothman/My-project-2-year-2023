@@ -46,7 +46,7 @@ public class UserController {
             UserInfomation user = userService.updateUser(id, updatedUser);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
         }
     }
 

@@ -1,0 +1,10 @@
+{
+  "short": 0,
+  "char": "string",
+  "int": 0,
+  "long": 0,
+  "float": 0,
+  "double": 0,
+  "direct": true,
+  "readOnly": true
+}
