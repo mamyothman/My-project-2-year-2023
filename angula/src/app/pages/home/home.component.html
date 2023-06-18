@@ -1,4 +1,4 @@
-
+<!-- Navigation Bar -->
 <header *ngIf="check_login">
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,7 +31,7 @@
   </div>
 </header>
 
-
+<!-- Main Or Body Of Page -->
 <main *ngIf="check_login">
   <div class="container pt-5">
     <div class="d-flex justify-content-end">
@@ -62,7 +62,7 @@
       </tbody>
     </table>
       <!-- post image Form and Table  -->
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-5">
           <div class="card">
             <div class="card-header">
@@ -76,9 +76,9 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
-      <table class="table table-bordered">
+      <!-- <table class="table table-bordered">
         <thead>
           <tr>
             <th>Name</th>
@@ -93,10 +93,8 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
   </div>
-
-
 
 </main>
 <!-- Error Page -->
@@ -110,9 +108,10 @@
     </div>
   </div>
 </div>
-<!-- <button mat-button ">Open Dialog</button> -->
-<ng-template #sayHelloTemplate>
 
+
+<!--  Dialog For Update User Form-->
+<ng-template #updateuser>
     <div class="card">
       <div class="card-header">
         <h4>Update User Information</h4>
@@ -146,8 +145,9 @@
         </form>
       </div>
     </div>
-
 </ng-template>
+
+<!-- Dialog For Add User Form -->
 <ng-template #adduser>
 
   <div class="card">

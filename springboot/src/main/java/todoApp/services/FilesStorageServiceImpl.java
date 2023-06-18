@@ -28,7 +28,26 @@ public class FilesStorageServiceImpl implements FilesStorageService {
     }
   }
 
-  @Override
+
+// public void save(MultipartFile file, Long id) {
+//     try {
+//         String filename = file.getOriginalFilename();
+//         // Save the file using the provided ID as part of the file name or any other desired approach
+//         String storedFileName = id + "_" + filename;
+//         Files.copy(file.getInputStream(), this.root.resolve(storedFileName));
+
+//         // Save the ID and file details to your storage or database as necessary
+//         // ...
+//     } catch (Exception e) {
+//         if (e instanceof FileAlreadyExistsException) {
+//             throw new RuntimeException("A file of that name already exists.");
+//         }
+//         throw new RuntimeException(e.getMessage());
+//     }
+// }
+
+
+@Override
   public void save(MultipartFile file) {
     try {
       Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()));
@@ -70,4 +89,17 @@ public class FilesStorageServiceImpl implements FilesStorageService {
       throw new RuntimeException("Could not load the files!");
     }
   }
+  @Override
+  public Stream<Path> getById(Long id) {
+    try {
+      String searchFileName = id + "_*";
+      return Files.walk(this.root, 1)
+              .filter(path -> !path.equals(this.root))
+              .filter(path -> path.getFileName().toString().matches(searchFileName))
+              .map(this.root::relativize);
+    } catch (IOException e) {
+      throw new RuntimeException("Could not load the files by ID!");
+    }
+  }
+
 }

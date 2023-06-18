@@ -11,19 +11,24 @@ import { UserInfoService } from 'src/app/services/user_info/user-info.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  imageData!: FormData;
+imageData!: FormData;
 username!:any
 check_login:boolean = true;
 error:boolean = false;
 image_model:image = new image()
-constructor(private user_services:UserInfoService,
+
+constructor(
+  private user_services:UserInfoService,
   private dialog: MatDialog,
   private image_services:ImageServicesService,
   private route:Router){}
+
 // user_info:user_info = new user_info();
 data!:any
 user_info: user_info= new user_info()
-@ViewChild('sayHelloTemplate') sayHelloTemplate!: TemplateRef<any>;
+
+
+@ViewChild('updateuser') updateuser!: TemplateRef<any>;
 @ViewChild('adduser') adduser!: TemplateRef<any>;
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
@@ -35,18 +40,20 @@ user_info: user_info= new user_info()
         this.error = true
       }
 
-      this.getAllFiles()
+      // this.getAllFiles()
   }
 
-
+// add user
   createUser(data:any){
     return this.user_services.createUser_Info(data).subscribe(respo=>{
       console.log(respo)
 
       this.dialog.closeAll();
+      this.getAll_User();
       // window.alert("User inserted")
     })
   }
+  // get all user
   getAll_User(){
     return this.user_services.getUser_Info().subscribe(respo=>{
       this.data = respo;
@@ -56,13 +63,16 @@ user_info: user_info= new user_info()
     })
   }
 
+  // update User
   update_User(user_id:any,data:any){
     return this.user_services.updateUser_Info(user_id,data).subscribe(respo=>{
       console.log(respo)
       this.dialog.closeAll();
+      this.getAll_User();
     })
   }
 
+  // delete user
 delete(data:any){
  this.user_info = data
 return this.user_services.deleteUser_Info(this.user_info.user_id).subscribe(respo=>{
@@ -70,44 +80,48 @@ return this.user_services.deleteUser_Info(this.user_info.user_id).subscribe(resp
   this.getAll_User()
 })
 }
+// open dialog for edit user
 openDialog(data:any): void {
-  this.dialog.open(this.sayHelloTemplate,{width:'400px'});
+  this.dialog.open(this.updateuser,{width:'400px'});
   this.user_info = data;
   console.log(this.user_info )
 
 }
+
+// open dialog for add user
 openDialogAddUser():void{
 
     this.dialog.open(this.adduser,{width:'400px'});
 }
 
-
+// update button submition
 UpdateUser(){
 
   this.update_User(this.user_info.user_id,this.user_info);
+
   // console.log(this.user_info.user_id,data)
 
 }
 
+// add button submition
 AddUser(){
-const data = {
-  "user_id":0,
-  "first_name":this.user_info.first_name,
-  "second_name":this.user_info.second_name,
-  "lastname":this.user_info.lastname,
-  "phone":this.user_info.phone,
-  "address":this.user_info.address,
-}
-this.createUser(data);
-this.getAll_User();
-// console.log(data)
+    const data = {
+              "user_id":0,
+              "first_name":this.user_info.first_name,
+              "second_name":this.user_info.second_name,
+              "lastname":this.user_info.lastname,
+              "phone":this.user_info.phone,
+              "address":this.user_info.address,
+    }
+    this.createUser(data);
+
+    // console.log(data)
 }
 
+// logout button
 logout(){
   sessionStorage.removeItem("username")
   this.route.navigate(['/nav-bar'])
-
-
 }
 // onFileChange(event: any) {
 //   if (event.target.files && event.target.files.length > 0) {
@@ -117,35 +131,46 @@ logout(){
 //     this.imageData.append('file', file);
 //   }
 // }
-selectedFile!: File;
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
-}
+// selectedFile!: File;
+// onFileSelected(event: any) {
+//   this.selectedFile = event.target.files[0];
+// }
 
-upload(file:File){
-  return this.image_services.uploadFile(file).subscribe(respo=>{
-    console.log(respo)
-    this.getAllFiles();
-  })
-}
+// upload(file:File){
+//   return this.image_services.uploadFile(file).subscribe(respo=>{
+//     // console.log(respo)
+//     const data = {
+//       "url" : respo.message
+//     }
+//     console.log(data)
 
-uploadFile() {
-  if (this.selectedFile) {
-    // console.log('Selected file:', this.selectedFile);
-      this.upload(this.selectedFile)
-  } else {
-    console.log('No file selected.');
-  }
-}
-files!: any[];
-getAllFiles() {
-  this.image_services.getAllFiles().subscribe(
-    (response) => {
-      this.files = response;
-    },
-    (error) => {
-      console.error('Error retrieving files:', error);
-    }
-  );
-}
+//     this.getAllFiles();
+//   })
+// }
+
+// uploadFile() {
+//   if (this.selectedFile) {
+//     // console.log('Selected file:', this.selectedFile,id);
+//       this.upload(this.selectedFile)
+//   } else {
+//     console.log('No file selected.');
+//   }
+// }
+// files!: any[];
+// filteredFiles: any[] = [];
+
+// getAllFiles() {
+//   this.image_services.getAllFiles().subscribe(
+//     (response) => {
+//       this.files = response;
+//        // Filter files with id equal to 123
+//        this.filteredFiles = this.files.filter(file => file.id === 1);
+
+//        console.log(this.filteredFiles);
+//     },
+//     (error) => {
+//       console.error('Error retrieving files:', error);
+//     }
+//   );
+// }
 }

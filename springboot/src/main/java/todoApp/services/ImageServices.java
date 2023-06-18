@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import todoApp.model.Order;
 import todoApp.model.image;
 import todoApp.repository.ImageRepository;
 @Service
@@ -19,18 +20,9 @@ public class ImageServices {
             this.imageRepository = imageRepository;
     }
 
-    public image store(MultipartFile file) throws IOException {
-    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-    image image = new image(fileName,file.getContentType(),file.getBytes());
-
+   public image create(image image){
     return imageRepository.save(image);
-  }
+ }
 
-  public image getFile(String id) {
-    return imageRepository.findById(id).get();
-  }
-  
-  public Stream<image> getAllFiles() {
-    return imageRepository.findAll().stream();
-  }
+
 }

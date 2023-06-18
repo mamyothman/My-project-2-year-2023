@@ -23,6 +23,16 @@ export class ImageServicesService {
     return this.http.post(this.url, formData);
   }
 
+  // uploadFile(file: File, id: any): Observable<any> {
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+
+  //   const urlWithId = `${this.url}?id=${id}`; // Include the ID in the URL as a query parameter
+
+  //   return this.http.post(urlWithId, formData);
+  // }
+
+
   getAllFiles(): Observable<any> {
     return this.http.get(this.url_2);
   }

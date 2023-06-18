@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 
 
+
 const routes: Routes = [
 {path:'',redirectTo:'/nav-bar' ,pathMatch:"full"},
 {path:'nav-bar',component:NavBarComponent,children:[
@@ -16,6 +17,8 @@ const routes: Routes = [
   {path:'register',component:RegisterComponent}
 ]},
 {path:'home',component:HomeComponent}
+
+
 
 ];
 
