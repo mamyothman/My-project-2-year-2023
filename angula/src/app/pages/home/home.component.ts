@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { image } from 'src/app/model/image';
 import { ImageServicesService } from 'src/app/services/image/image-services.service';
 import { UserInfoService } from 'src/app/services/user_info/user-info.service';
+export class calculator{
+  input:any
+}
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -41,6 +44,7 @@ user_info: user_info= new user_info()
       }
 
       // this.getAllFiles()
+      this.fetchImages()
   }
 
 // add user
@@ -123,39 +127,37 @@ logout(){
   sessionStorage.removeItem("username")
   this.route.navigate(['/nav-bar'])
 }
-// onFileChange(event: any) {
-//   if (event.target.files && event.target.files.length > 0) {
-//     const file = event.target.files[0];
-//     this.image_model.filename = file.name;
-//     this.imageData = new FormData();
-//     this.imageData.append('file', file);
-//   }
-// }
-// selectedFile!: File;
-// onFileSelected(event: any) {
-//   this.selectedFile = event.target.files[0];
-// }
+onFileChange(event: any) {
+  if (event.target.files && event.target.files.length > 0) {
+    const file = event.target.files[0];
+    this.image_model.filename = file.name;
+    this.imageData = new FormData();
+    this.imageData.append('file', file);
+  }
+}
+selectedFile!: File;
+onFileSelected(event: any) {
+  this.selectedFile = event.target.files[0];
+}
 
-// upload(file:File){
-//   return this.image_services.uploadFile(file).subscribe(respo=>{
-//     // console.log(respo)
-//     const data = {
-//       "url" : respo.message
-//     }
-//     console.log(data)
+upload(file:File){
+  return this.image_services.uploadFile(file).subscribe(respo=>{
 
-//     this.getAllFiles();
-//   })
-// }
+    console.log(respo)
 
-// uploadFile() {
-//   if (this.selectedFile) {
-//     // console.log('Selected file:', this.selectedFile,id);
-//       this.upload(this.selectedFile)
-//   } else {
-//     console.log('No file selected.');
-//   }
-// }
+    // this.getAllFiles();
+    this.fetchImages()
+  })
+}
+
+uploadFile() {
+  if (this.selectedFile) {
+    // console.log('Selected file:', this.selectedFile,id);
+      this.upload(this.selectedFile)
+  } else {
+    console.log('No file selected.');
+  }
+}
 // files!: any[];
 // filteredFiles: any[] = [];
 
@@ -173,4 +175,37 @@ logout(){
 //     }
 //   );
 // }
+images: any
+getBase64Image(image: any): string {
+  // Assuming image_byte is a base64 encoded string in the backend
+  return 'data:' + image.image_typ + ';base64,' + image.image_byte;
+}
+fetchImages(){
+  this.image_services.getAllFiles().subscribe(
+    respo =>{
+      this.images = respo
+    }
+  )
+}
+
+calculator_model:calculator = new calculator()
+// items: Item[] = [
+//   { name: 'Item 1', cost: 10 },
+//   { name: 'Item 2', cost: 20 },
+//   { name: 'Item 3', cost: 30 },
+//   { name: 'Item 4', cost: 40 },
+//   { name: 'Item 5', cost: 50 },
+// ];
+
+// calculator_model = {
+//   input: 0
+// };
+
+// calculate(): void {
+//   const inputValue = +this.calculator_model.input;
+//   this.items.forEach(item => {
+//     item.totalAmount = inputValue * item.cost;
+//   });
+// }
+
 }

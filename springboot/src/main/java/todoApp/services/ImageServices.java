@@ -1,14 +1,15 @@
 package todoApp.services;
 
 import java.io.IOException;
-import java.util.stream.Stream;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import todoApp.model.Order;
 import todoApp.model.image;
 import todoApp.repository.ImageRepository;
 @Service
@@ -20,9 +21,34 @@ public class ImageServices {
             this.imageRepository = imageRepository;
     }
 
-   public image create(image image){
-    return imageRepository.save(image);
+   public List< image> create(MultipartFile[] file) throws IOException {
+
+   Set<image> images = uploadFile(file);
+
+   List<image> savImages =   imageRepository.saveAll(images);
+    
+     
+     return savImages;
  }
+
+
+ public Set<image> uploadFile(MultipartFile[] multipartFiles) throws IOException {
+    Set<image> image_models = new HashSet<>();
+
+    for (MultipartFile file : multipartFiles) {
+        image image_model = new image(
+                file.getOriginalFilename(),
+                file.getContentType(),
+                file.getBytes()
+        );
+        image_models.add(image_model);
+    }
+    return image_models;
+}
+
+public List<image> getAllImages() {
+    return imageRepository.findAll();
+}
 
 
 }

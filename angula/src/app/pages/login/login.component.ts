@@ -32,7 +32,7 @@ export class LoginComponent {
 
   login(){
       this.login_process(this.login_model.username,this.login_model.password)
-      // console.log(this.login_model.username,this.login_model.password);
+      // console.log(this.login_model);
   }
 
 }

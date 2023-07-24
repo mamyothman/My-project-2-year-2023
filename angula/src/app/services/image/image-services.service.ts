@@ -9,9 +9,11 @@ import { environment } from 'src/enviroment/enviroment';
 export class ImageServicesService {
   // private images = environment.url + 'image';
 
-  private url = "http://localhost:8080/api/file/upload";
+  // private url = "http://localhost:8080/api/file/upload";
+  private url = "http://localhost:8081/api/image/saveImage"
 
-  private url_2 = "http://localhost:8080/api/file/files";
+  // private url_2 = "http://localhost:8080/api/file/files";
+  private url_2 = "http://localhost:8081/api/image/getAllimages/"
 
   constructor( private http:HttpClient ) { }
 

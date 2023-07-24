@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Create a Retrofit instance
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl("http://192.168.100.152:8081/")
+                        .baseUrl("http://192.168.43.152:8081/")
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 

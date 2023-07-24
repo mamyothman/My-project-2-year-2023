@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './default/main/main.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
+import { OrderComponent } from './pages/order/order.component';
 
 
 
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path:'login',component:LoginComponent},
   {path:'register',component:RegisterComponent}
 ]},
-{path:'home',component:HomeComponent}
+{path:'home',component:HomeComponent},
+{path:'order',component:OrderComponent}
 
 
 

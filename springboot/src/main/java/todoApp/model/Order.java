@@ -9,10 +9,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Order_Table")
+@Table(name = "Order_Table") 
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long order_id;
+    private Long product_id;
     private String order_name;
+    
 }

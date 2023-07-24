@@ -22,6 +22,13 @@ public class UserInfo_Services {
         return user_infoRepository.findAll();
     }
 
+    //  public List<Map<String, Object>> getfIRSTnAMEaNDSECOND() {
+    //     return user_infoRepository.getFirstNameAndSecondName();
+    // }
+    //   public List<Map<String, Object>> searchByFirstName(String firstName) {
+    //     return user_infoRepository.seach(firstName);
+    // }
+     
     public Optional<UserInfomation> getUserById(long id) {
         return user_infoRepository.findById( id);
     }
@@ -49,4 +56,6 @@ public class UserInfo_Services {
     public void deleteUser(long id) {
         user_infoRepository.deleteById( id);
     }
+
+
 }

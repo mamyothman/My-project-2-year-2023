@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Add User Information</h4>
+  </div>
+  <div class="card-body">
+    <form #myForm="ngForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="">Product Name</label> 
+        <input type="text" class="form-control" name="product_name"
+         [(ngModel)]="product_model.product_name"
+          required [ngModelOptions]="{ standalone: true }">
+      </div>
+      <div class="form-group">
+        <label for="">Order Name</label>
+        <input type="text" class="form-control" name="order_name"
+        [(ngModel)]="order_model.order_name"
+         required [ngModelOptions]="{ standalone: true }">
+      </div>
+      <hr>
+      <div class="form-group">
+        <button class="btn btn-success" type="submit" [disabled]="myForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import todoApp.model.UserInfomation;
 import todoApp.services.UserInfo_Services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 @CrossOrigin
 @RestController
@@ -26,6 +27,20 @@ public class UserController {
         List<UserInfomation> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+//    @GetMapping("/getAllUserFirstnameSecondName")
+// public ResponseEntity<List<Map<String, Object>>> getAllFirstNameAndSecondName() {
+//     List<Map<String, Object>> users = userService.getfIRSTnAMEaNDSECOND();
+    
+//     return ResponseEntity.ok(users);
+// }
+
+//     @GetMapping("/search")
+//     public ResponseEntity<List<Map<String, Object>>> searchByFirstName(@RequestParam String firstName) {
+//         List<Map<String, Object>> users = userService.searchByFirstName(firstName);
+//         return ResponseEntity.ok(users);
+//     }
+
 
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<UserInfomation> getUserById(@PathVariable("id") int id) {
@@ -59,4 +74,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
 }
